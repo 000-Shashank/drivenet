@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DriveNet | V2V Driving Safety System</title>
+    <meta
+      name="description"
+      content="DriveNet is a vehicle-to-vehicle communication system for RC cars using ESP32, ESP-NOW, and a web-based dashboard."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container nav">
+        <div class="brand">
+          <span class="brand-mark">D</span>
+          <span>DriveNet</span>
+        </div>
+        <nav>
+          <a href="#overview">Overview</a>
+          <a href="#features">Features</a>
+          <a href="#architecture">Architecture</a>
+          <a href="#setup">Setup</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <span class="eyebrow">ESP32 • ESP-NOW • RC Vehicles</span>
+            <h1>Connected driving safety for RC vehicles.</h1>
+            <p>
+              DriveNet enables vehicle-to-vehicle communication, shared sensor data,
+              and real-time safety monitoring for RC cars using a lightweight web UI.
+            </p>
+            <div class="cta-row">
+              <a class="button primary" href="#overview">Explore project</a>
+              <a class="button secondary" href="https://github.com/000-Shashank/drivenet" target="_blank" rel="noreferrer">GitHub repo</a>
+            </div>
+            <ul class="small-stats">
+              <li><strong>2-5ms</strong><span>ESP-NOW latency</span></li>
+              <li><strong>100-200m</strong><span>Range</span></li>
+              <li><strong>Real-time</strong><span>Sensor sharing</span></li>
+            </ul>
+          </div>
+
+          <div class="dashboard-card">
+            <div class="panel-header">
+              <span>Live demo</span>
+              <span class="status-dot">●</span>
+            </div>
+
+            <div class="metrics row-3">
+              <div class="metric">
+                <label>Accel X</label>
+                <strong id="ax">0.214g</strong>
+              </div>
+              <div class="metric">
+                <label>Gyro Z</label>
+                <strong id="gz">12.40°</strong>
+              </div>
+              <div class="metric">
+                <label>Distance</label>
+                <strong id="distance">42.5 cm</strong>
+              </div>
+            </div>
+
+            <div class="chart-box">
+              <div class="chart-bar"><span style="height: 64%"></span></div>
+              <div class="chart-bar"><span style="height: 48%"></span></div>
+              <div class="chart-bar"><span style="height: 88%"></span></div>
+              <div class="chart-bar"><span style="height: 58%"></span></div>
+              <div class="chart-bar"><span style="height: 76%"></span></div>
+              <div class="chart-bar"><span style="height: 93%"></span></div>
+            </div>
+
+            <div class="neighbor-list">
+              <div class="neighbor-head">
+                <span>Nearby cars</span>
+                <span id="neighborCount">3</span>
+              </div>
+              <div class="neighbor-item">
+                <span>Car 01</span>
+                <span>Healthy</span>
+              </div>
+              <div class="neighbor-item">
+                <span>Car 02</span>
+                <span>Warning</span>
+              </div>
+              <div class="neighbor-item">
+                <span>Car 03</span>
+                <span>Healthy</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="overview" class="section">
+        <div class="container">
+          <div class="section-heading">
+            <span class="eyebrow">Overview</span>
+            <h2>Built for real-time V2V awareness</h2>
+          </div>
+
+          <div class="feature-grid three-col">
+            <article class="feature-card">
+              <h3>Sensor fusion</h3>
+              <p>Accelerometer, gyroscope, ultrasonic distance, and servo angle data are gathered in real time.</p>
+            </article>
+            <article class="feature-card">
+              <h3>Low-latency network</h3>
+              <p>ESP-NOW enables rapid communication between nearby cars for coordinated driving decisions.</p>
+            </article>
+            <article class="feature-card">
+              <h3>Browser dashboard</h3>
+              <p>The project includes a web UI served by the ESP32 access point, making it easy to inspect data.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="features" class="section alt">
+        <div class="container">
+          <div class="section-heading">
+            <span class="eyebrow">Features</span>
+            <h2>What the system does</h2>
+          </div>
+
+          <div class="feature-grid four-col">
+            <article class="feature-card">
+              <h3>Real-time sharing</h3>
+              <p>Each vehicle broadcasts its current sensor state to nearby cars.</p>
+            </article>
+            <article class="feature-card">
+              <h3>Obstacle detection</h3>
+              <p>Ultrasonic distance measurement supports collision warnings and braking assistance.</p>
+            </article>
+            <article class="feature-card">
+              <h3>Driver controls</h3>
+              <p>Control the steering and motion from the browser to test driving behavior.</p>
+            </article>
+            <article class="feature-card">
+              <h3>Dashboard analytics</h3>
+              <p>Nearby cars and sensor states are surfaced in a clean monitoring interface.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="architecture" class="section">
+        <div class="container">
+          <div class="section-heading">
+            <span class="eyebrow">Architecture</span>
+            <h2>ESP32 + Wi-Fi web UI</h2>
+          </div>
+
+          <div class="architecture-box">
+            <div class="flow">
+              <div class="node">ESP32</div>
+              <div class="arrow">→</div>
+              <div class="node">Sensor data</div>
+              <div class="arrow">→</div>
+              <div class="node">ESP-NOW</div>
+              <div class="arrow">→</div>
+              <div class="node">Browser UI</div>
+            </div>
+            <p>
+              The electronic controller gathers motion and distance data, broadcasts it over ESP-NOW,
+              and exposes a local web interface through the ESP32 Wi-Fi access point.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="setup" class="section alt">
+        <div class="container">
+          <div class="section-heading">
+            <span class="eyebrow">Setup</span>
+            <h2>How to run the project</h2>
+          </div>
+
+          <ol class="setup-list">
+            <li>Flash the Arduino sketch in <code>drivenet.ino</code> onto an ESP32 board.</li>
+            <li>Connect to the network named <code>DriveNet_AP</code> with password <code>drivenet123</code>.</li>
+            <li>Open the local device page at <code>http://192.168.4.1</code>.</li>
+            <li>Use the dashboard to monitor sensors and nearby vehicles.</li>
+          </ol>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <span>DriveNet</span>
+        <a href="https://github.com/000-Shashank/drivenet" target="_blank" rel="noreferrer">GitHub Repository</a>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
