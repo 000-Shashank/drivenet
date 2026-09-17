@@ -9,601 +9,346 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
-    :root {
-      --bg: #07090f;
-      --surface: #161b22;
-      --surface-2: #1c232e;
-      --border: rgba(255, 255, 255, 0.06);
-      --text: #f0f6fc;
-      --muted: #8b949e;
-      --dim: #6e7681;
-      --accent: #38bdf8;
-      --emerald: #10b981;
-      --amber: #f59e0b;
-      --rose: #f43f5e;
-      --grad-1: linear-gradient(135deg, #38bdf8, #22d3ee);
-      --grad-2: linear-gradient(135deg, #10b981, #22d3ee);
+    :root{
+      --bg:#07090f; --surface:#161b22; --surface-2:#1c232e; --border:rgba(255,255,255,0.06); --text:#f0f6fc;
+      --muted:#8b949e; --dim:#6e7681; --accent:#38bdf8; --emerald:#10b981; --amber:#f59e0b; --rose:#f43f5e;
+      --grad-1:linear-gradient(135deg,#38bdf8,#22d3ee); --grad-2:linear-gradient(135deg,#10b981,#22d3ee);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      padding: 24px 16px;
-      min-height: 100vh;
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); padding:24px 16px; min-height:100vh;
       background-image:
-        radial-gradient(ellipse 800px 400px at 15% -10%, rgba(56, 189, 248, 0.12), transparent 60%),
-        radial-gradient(ellipse 800px 400px at 85% 110%, rgba(16, 185, 129, 0.08), transparent 60%);
+        radial-gradient(ellipse 800px 400px at 15% -10%, rgba(56,189,248,0.12), transparent 60%),
+        radial-gradient(ellipse 800px 400px at 85% 110%, rgba(16,185,129,0.08), transparent 60%);
     }
+    a{color:inherit;text-decoration:none}
+    button{font:inherit}
 
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; display: block; }
+    .container{max-width:1440px;margin:0 auto}
+    .app-header{max-width:1440px;margin:0 auto 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
+    .brand{display:flex;align-items:center;gap:16px}
+    .brand-mark{width:52px;height:52px;border-radius:14px;background:var(--grad-1);display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 8px 24px rgba(56,189,248,0.5);font-weight:800;color:#041018}
+    .brand-title{font-size:1.6rem;font-weight:800;letter-spacing:-0.035em}
+    .brand-title .accent{background:var(--grad-1);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+    .brand-sub{font-size:0.78rem;color:var(--muted);margin-top:6px}
+    .live-badge{font-size:0.65rem;padding:4px 10px;border-radius:6px;background:rgba(244,63,94,0.12);color:#fb7185;border:1px solid rgba(244,63,94,0.3);text-transform:uppercase;font-weight:700;letter-spacing:0.08em}
 
-    .app-shell {
-      max-width: 1440px;
-      margin: 0 auto;
-    }
+    .cars-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-bottom:24px}
+    @media(max-width:1080px){.cars-grid{grid-template-columns:1fr}}
 
-    .app-header {
-      max-width: 1440px;
-      margin: 0 auto 28px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
+    .car-card{background:linear-gradient(180deg,rgba(22,27,34,0.75),rgba(15,20,25,0.9));border:1px solid var(--border);border-radius:20px;position:relative;overflow:hidden;backdrop-filter:blur(20px);box-shadow:0 12px 32px rgba(0,0,0,0.5);transition:all 0.4s cubic-bezier(0.16,1,0.3,1)}
+    .car-card:hover{transform:translateY(-4px);box-shadow:0 24px 64px rgba(0,0,0,0.6)}
+    .car-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+    .car-alpha::before{background:linear-gradient(90deg,transparent,#38bdf8,transparent)}
+    .car-beta::before{background:linear-gradient(90deg,transparent,#f59e0b,transparent)}
+    .car-body{padding:24px}
+    .car-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid var(--border)}
+    .car-avatar{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-weight:800;color:white;font-family:'JetBrains Mono',monospace}
+    .car-alpha .car-avatar{background:linear-gradient(135deg,#38bdf8,#0284c7)}
+    .car-beta .car-avatar{background:linear-gradient(135deg,#f59e0b,#d97706)}
+    .car-name{font-size:1.05rem;font-weight:700}
+    .car-meta{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--dim);margin-top:4px}
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
+    .section-label{font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--dim);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+    .section-label::before{content:'';width:3px;height:12px;background:var(--grad-1);border-radius:2px}
+    .sensor-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
+    .sensor-grid.cols-2{grid-template-columns:1fr 1fr}
+    .sensor{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:12px;padding:12px}
+    .sensor-label{font-size:0.62rem;font-weight:600;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
+    .sensor-value{font-family:'JetBrains Mono',monospace;font-size:1.1rem;font-weight:600;color:var(--text);display:flex;align-items:baseline;gap:3px}
+    .sensor-value .unit{font-size:0.68rem;color:var(--dim)}
 
-    .brand-mark {
-      width: 52px;
-      height: 52px;
-      border-radius: 14px;
-      background: var(--grad-1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 26px;
-      box-shadow: 0 8px 24px rgba(56, 189, 248, 0.5);
-      font-weight: 800;
-      color: #041018;
-    }
+    .speed-panel{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:20px}
+    .speed-header{display:flex;justify-content:space-between;margin-bottom:10px}
+    .speed-label{font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--dim)}
+    .speed-readout{font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--accent);font-weight:600}
+    .speed-track{height:6px;background:rgba(0,0,0,0.4);border-radius:3px;overflow:hidden}
+    .speed-progress{height:100%;width:0%;background:var(--grad-2);transition:width 0.2s linear;box-shadow:0 0 12px rgba(16,185,129,0.4)}
 
-    .brand-title {
-      font-size: 1.6rem;
-      font-weight: 800;
-      letter-spacing: -0.035em;
-    }
+    .servo-panel{display:flex;align-items:center;gap:16px;padding:14px 16px;background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:12px;margin-bottom:20px}
+    .radar-wrap{width:64px;height:64px;border-radius:50%;background:radial-gradient(circle,rgba(56,189,248,0.15),transparent 60%),rgba(0,0,0,0.3);border:1.5px solid rgba(56,189,248,0.25);position:relative;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+    .radar-wrap::before{content:'';position:absolute;inset:12px;border-radius:50%;border:1px dashed rgba(56,189,248,0.2)}
+    .radar-beam{width:22px;height:3px;background:linear-gradient(90deg,var(--accent),transparent);position:absolute;top:50%;left:50%;transform-origin:left center;transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1)}
+    .servo-angle{font-family:'JetBrains Mono',monospace;font-size:1.5rem;font-weight:700;color:var(--text)}
+    .servo-angle .deg{color:var(--accent);font-size:1rem}
 
-    .brand-title .accent {
-      background: var(--grad-1);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+    .controls-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+    .ctrl-btn{padding:12px 10px;border:1px solid var(--border);border-radius:10px;background:rgba(255,255,255,0.02);color:var(--muted);font-family:inherit;font-size:0.78rem;font-weight:600;cursor:pointer;transition:all 0.18s;display:flex;align-items:center;justify-content:center;gap:6px}
+    .ctrl-btn:hover{border-color:rgba(255,255,255,0.1);color:var(--text);transform:translateY(-1px)}
+    .ctrl-btn:active{transform:scale(0.98)}
+    .ctrl-btn svg{width:14px;height:14px}
+    .is-fwd{color:#4ade80;border-color:rgba(16,185,129,0.25);background:rgba(16,185,129,0.08)}
+    .is-fwd.active{background:linear-gradient(135deg,#10b981,#059669);color:white;box-shadow:0 0 24px rgba(16,185,129,0.4)}
+    .is-back{color:#60a5fa;border-color:rgba(56,189,248,0.25);background:rgba(56,189,248,0.08)}
+    .is-stop{color:#fbbf24;border-color:rgba(245,158,11,0.25);background:rgba(245,158,11,0.08)}
+    .is-stop.active{background:linear-gradient(135deg,#f59e0b,#d97706);color:white}
+    .is-brake{color:#fb7185;border-color:rgba(244,63,94,0.25);background:rgba(244,63,94,0.08)}
+    .is-brake.active{background:linear-gradient(135deg,#f43f5e,#dc2626);color:white;animation:blink 0.7s infinite}
+    @keyframes blink{50%{opacity:0.85}}
 
-    .brand-sub {
-      font-size: 0.78rem;
-      color: var(--muted);
-      margin-top: 6px;
-    }
+    .v2v-panel{background:linear-gradient(180deg,rgba(22,27,34,0.75),rgba(15,20,25,0.9));border:1px solid var(--border);border-radius:20px;padding:28px;backdrop-filter:blur(20px);box-shadow:0 12px 32px rgba(0,0,0,0.5);position:relative;overflow:hidden}
+    .v2v-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#38bdf8,#10b981,#f59e0b,transparent)}
+    .link-visual{display:grid;grid-template-columns:1fr auto 1fr;gap:20px;align-items:center;margin-bottom:24px;padding:20px;background:rgba(0,0,0,0.2);border:1px solid var(--border);border-radius:16px}
+    .node{padding:18px 16px;border-radius:12px;background:rgba(255,255,255,0.02);border:1px solid var(--border);display:flex;align-items:center;gap:14px}
+    .link-arrows{font-size:1.3rem;color:var(--accent);animation:bi 1.6s ease-in-out infinite}
+    @keyframes bi{0%,100%{opacity:0.5}50%{opacity:1}}
+    .neighbors-table{width:100%;border-collapse:collapse;font-size:0.8rem;background:rgba(0,0,0,0.2);border-radius:12px;overflow:hidden}
+    .neighbors-table th{padding:14px 16px;text-align:left;font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--dim);background:rgba(255,255,255,0.02);border-bottom:1px solid var(--border)}
+    .neighbors-table td{padding:14px 16px;font-family:'JetBrains Mono',monospace;font-size:0.78rem;border-bottom:1px solid rgba(255,255,255,0.03)}
+    .car-tag{padding:4px 9px;border-radius:6px;font-size:0.68rem;font-weight:700;font-family:'JetBrains Mono',monospace}
+    .car-tag.alpha{background:rgba(56,189,248,0.12);color:#7dd3fc}
+    .car-tag.beta{background:rgba(245,158,11,0.12);color:#fbbf24}
 
-    .live-badge {
-      font-size: 0.65rem;
-      padding: 4px 10px;
-      border-radius: 6px;
-      background: rgba(244, 63, 94, 0.12);
-      color: #fb7185;
-      border: 1px solid rgba(244, 63, 94, 0.3);
-      text-transform: uppercase;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-    }
+    .alerts-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:24px 0 0}
+    @media(max-width:760px){.alerts-row{grid-template-columns:1fr 1fr}}
+    .alert-chip{padding:12px 14px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid var(--border);display:flex;align-items:center;gap:10px;font-size:0.72rem;font-weight:600;color:var(--dim);transition:all 0.3s}
+    .alert-chip.warning.active{background:rgba(245,158,11,0.12);border-color:rgba(245,158,11,0.4);color:#fbbf24;box-shadow:0 4px 16px rgba(245,158,11,0.15)}
+    .alert-chip.danger.active{background:rgba(244,63,94,0.15);border-color:rgba(244,63,94,0.45);color:#fb7185;animation:blink 1.2s infinite}
 
-    .hero {
-      display: grid;
-      grid-template-columns: 1.3fr 1fr;
-      gap: 26px;
-      align-items: stretch;
-      margin-bottom: 28px;
-    }
-
-    .panel {
-      background: rgba(22, 27, 34, 0.82);
-      border: 1px solid var(--border);
-      border-radius: 26px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
-      backdrop-filter: blur(10px);
-    }
-
-    .hero-copy {
-      padding: 38px 32px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-copy::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(56, 189, 248, 0.08), transparent 50%, rgba(16, 185, 129, 0.06));
-      pointer-events: none;
-    }
-
-    .hero-copy > * {
-      position: relative;
-      z-index: 1;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 7px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(56, 189, 248, 0.24);
-      background: rgba(56, 189, 248, 0.08);
-      color: #7dd3fc;
-      font-size: 0.72rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      font-weight: 700;
-      margin-bottom: 18px;
-    }
-
-    .hero-copy h1 {
-      font-size: clamp(2.6rem, 4vw, 5rem);
-      line-height: 0.96;
-      letter-spacing: -0.065em;
-      margin: 0 0 18px;
-      max-width: 640px;
-    }
-
-    .hero-copy p {
-      color: var(--muted);
-      font-size: 1.08rem;
-      line-height: 1.7;
-      max-width: 620px;
-    }
-
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-top: 26px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 14px 20px;
-      border-radius: 12px;
-      font-weight: 700;
-      transition: transform 0.2s ease, background 0.2s ease;
-      border: 1px solid transparent;
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-    }
-
-    .btn-primary {
-      background: var(--grad-1);
-      color: #06141c;
-      box-shadow: 0 10px 24px rgba(56, 189, 248, 0.32);
-    }
-
-    .btn-secondary {
-      border-color: var(--border);
-      background: rgba(255,255,255,0.02);
-      color: var(--text);
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 32px;
-    }
-
-    .stat {
-      background: rgba(255,255,255,0.02);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 14px 16px;
-    }
-
-    .stat strong {
-      display: block;
-      font-size: 1.15rem;
-      margin-bottom: 6px;
-    }
-
-    .stat span {
-      color: var(--muted);
-      font-size: 0.82rem;
-    }
-
-    .dashboard {
-      padding: 20px 18px 18px;
-      background: rgba(22,27,34,0.9);
-    }
-
-    .dash-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      padding-bottom: 14px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 12px;
-      color: var(--muted);
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-    }
-
-    .dot {
-      display: inline-block;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--emerald);
-      box-shadow: 0 0 12px rgba(16, 185, 129, 0.9);
-    }
-
-    .metrics {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-
-    .metric {
-      background: rgba(255,255,255,0.02);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 12px 10px;
-    }
-
-    .metric small {
-      display: block;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 8px;
-      font-size: 0.64rem;
-    }
-
-    .metric strong {
-      font-size: 1.02rem;
-      font-weight: 700;
-    }
-
-    .bars {
-      height: 140px;
-      display: flex;
-      align-items: end;
-      gap: 10px;
-      padding: 12px 8px 6px;
-      border-radius: 16px;
-      background: linear-gradient(180deg, rgba(56,189,248,0.08), rgba(16,185,129,0.03));
-      border: 1px solid var(--border);
-      margin-bottom: 18px;
-    }
-
-    .bars span {
-      display: block;
-      flex: 1;
-      border-radius: 10px 10px 0 0;
-      background: linear-gradient(180deg, var(--accent), var(--emerald));
-      min-height: 18%;
-    }
-
-    .neighbors {
-      margin-top: 10px;
-    }
-
-    .neighbors-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 4px 12px;
-      color: var(--muted);
-      font-size: 0.76rem;
-      text-transform: uppercase;
-      letter-spacing: 0.09em;
-    }
-
-    .neighbor {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(255,255,255,0.02);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 12px 12px;
-      margin-top: 8px;
-      color: var(--muted);
-    }
-
-    .neighbor strong {
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    .status-pill {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 4px 8px;
-      border-radius: 999px;
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    .status-good { background: rgba(16,185,129,0.12); color: #6ee7b7; }
-    .status-warn { background: rgba(245,158,11,0.12); color: #fbbf24; }
-
-    .content-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 24px;
-      margin-top: 10px;
-    }
-
-    .feature-card {
-      padding: 22px 18px;
-    }
-
-    .feature-card h3 {
-      font-size: 1.1rem;
-      margin-bottom: 10px;
-    }
-
-    .feature-card p {
-      color: var(--muted);
-      line-height: 1.7;
-      font-size: 0.96rem;
-    }
-
-    .architecture {
-      margin-top: 24px;
-      padding: 28px 18px;
-    }
-
-    .section-title {
-      font-size: clamp(1.8rem, 3vw, 2.7rem);
-      letter-spacing: -0.055em;
-      margin-bottom: 18px;
-    }
-
-    .flow {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin: 18px 0 22px;
-    }
-
-    .node {
-      padding: 12px 18px;
-      border-radius: 999px;
-      background: rgba(56, 189, 248, 0.08);
-      border: 1px solid rgba(56,189,248,0.25);
-      font-weight: 700;
-      color: #dbeafe;
-    }
-
-    .arrow {
-      color: var(--muted);
-      font-size: 1.2rem;
-      font-weight: 700;
-    }
-
-    .architecture p {
-      color: var(--muted);
-      line-height: 1.75;
-    }
-
-    .setup {
-      margin-top: 24px;
-      padding: 28px 18px;
-    }
-
-    .setup ol {
-      padding-left: 22px;
-      color: var(--muted);
-      line-height: 1.9;
-      font-size: 1.02rem;
-    }
-
-    .mono {
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    .footer {
-      padding: 24px 0 10px;
-      color: var(--muted);
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    @media (max-width: 980px) {
-      .hero { grid-template-columns: 1fr; }
-      .content-grid { grid-template-columns: 1fr; }
-      .stats { grid-template-columns: 1fr; }
-    }
-
-    @media (max-width: 640px) {
-      body { padding: 18px 12px; }
-      .hero-copy, .dashboard, .feature-card, .architecture, .setup { padding-left: 16px; padding-right: 16px; }
-      .actions { flex-direction: column; }
-      .btn { width: 100%; }
-      .metrics { grid-template-columns: 1fr; }
-    }
+    @media(max-width:640px){.sensor-grid,.sensor-grid.cols-2{grid-template-columns:1fr}.car-body{padding:18px}.controls-grid{grid-template-columns:repeat(2,1fr)}.link-visual{grid-template-columns:1fr;}.alerts-row{grid-template-columns:1fr 1fr}}
   </style>
 </head>
 <body>
-  <div class="app-shell">
-    <header class="app-header">
-      <div class="brand">
-        <div class="brand-mark">D</div>
-        <div>
-          <div class="brand-title"><span class="accent">Drive</span>Net</div>
-          <div class="brand-sub">V2V RC Car Communication System</div>
+  <header class="app-header">
+    <div class="brand">
+      <div class="brand-mark">🚗</div>
+      <div>
+        <div class="brand-title">Drive<span class="accent">Net</span> <span class="live-badge">Live</span></div>
+        <div class="brand-sub">Vehicle-to-Vehicle Communication System for RC Cars</div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="cars-grid">
+      <div class="car-card car-alpha">
+        <div class="car-body">
+          <div class="car-header">
+            <div style="display:flex;gap:14px;align-items:center">
+              <div class="car-avatar">C1</div>
+              <div>
+                <div class="car-name">Car Alpha</div>
+                <div class="car-meta">192.168.4.1 · ID: 0x01</div>
+              </div>
+            </div>
+            <div class="car-meta">🔋 <strong id="c1-battery">92</strong>%</div>
+          </div>
+
+          <div class="section-label">Motion Telemetry</div>
+          <div class="sensor-grid">
+            <div class="sensor"><div class="sensor-label">Accel X</div><div class="sensor-value"><span id="c1-ax">0.000</span><span class="unit">g</span></div></div>
+            <div class="sensor"><div class="sensor-label">Accel Y</div><div class="sensor-value"><span id="c1-ay">0.000</span><span class="unit">g</span></div></div>
+            <div class="sensor"><div class="sensor-label">Accel Z</div><div class="sensor-value"><span id="c1-az">1.000</span><span class="unit">g</span></div></div>
+            <div class="sensor"><div class="sensor-label">Gyro X</div><div class="sensor-value"><span id="c1-gx">0.00</span><span class="unit">°/s</span></div></div>
+            <div class="sensor"><div class="sensor-label">Gyro Y</div><div class="sensor-value"><span id="c1-gy">0.00</span><span class="unit">°/s</span></div></div>
+            <div class="sensor"><div class="sensor-label">Gyro Z</div><div class="sensor-value"><span id="c1-gz">0.00</span><span class="unit">°/s</span></div></div>
+          </div>
+
+          <div class="sensor-grid cols-2">
+            <div class="sensor"><div class="sensor-label">Distance</div><div class="sensor-value"><span id="c1-dist">--</span><span class="unit">cm</span></div></div>
+            <div class="sensor"><div class="sensor-label">Updated</div><div class="sensor-value" style="font-size:0.85rem"><span id="c1-time">--</span></div></div>
+          </div>
+
+          <div class="speed-panel">
+            <div class="speed-header"><div class="speed-label">Velocity</div><div class="speed-readout"><span id="c1-speed-num">0</span>/255</div></div>
+            <div class="speed-track"><div class="speed-progress" id="c1-speed-fill"></div></div>
+          </div>
+
+          <div class="servo-panel">
+            <div class="radar-wrap"><div class="radar-beam" id="c1-radar"></div></div>
+            <div><div class="sensor-label">Sensor Pan Angle</div><div class="servo-angle"><span id="c1-servo">90</span><span class="deg">°</span></div></div>
+          </div>
+
+          <div class="section-label">Drive Controls</div>
+          <div class="controls-grid">
+            <button class="ctrl-btn is-back" onclick="drive(1,'back')">◀ Back</button>
+            <button class="ctrl-btn is-fwd" onclick="drive(1,'forward')" id="c1-fwd">Forward ▶</button>
+            <button class="ctrl-btn" onclick="drive(1,'right')">Right ▶</button>
+            <button class="ctrl-btn" onclick="drive(1,'left')">◀ Left</button>
+            <button class="ctrl-btn is-stop" onclick="drive(1,'stop')" id="c1-stop">■ Stop</button>
+            <button class="ctrl-btn is-brake" onclick="brake(1)" id="c1-brake">✕ Brake</button>
+          </div>
         </div>
       </div>
-      <div class="live-badge">Live Demo</div>
-    </header>
 
-    <main>
-      <section class="hero">
-        <div class="panel hero-copy">
-          <div class="eyebrow">ESP32 • ESP-NOW • RC Vehicles</div>
-          <h1>Connected driving safety for RC vehicles.</h1>
-          <p>
-            DriveNet enables vehicle-to-vehicle communication, shared sensor data, and real-time safety monitoring for RC cars using a lightweight web dashboard.
-          </p>
-
-          <div class="actions">
-            <a href="#overview" class="btn btn-primary">Explore project</a>
-            <a href="https://github.com/000-Shashank/drivenet" class="btn btn-secondary" target="_blank" rel="noreferrer">GitHub repo</a>
+      <div class="car-card car-beta">
+        <div class="car-body">
+          <div class="car-header">
+            <div style="display:flex;gap:14px;align-items:center">
+              <div class="car-avatar">C2</div>
+              <div>
+                <div class="car-name">Car Beta</div>
+                <div class="car-meta">192.168.4.2 · ID: 0x02</div>
+              </div>
+            </div>
+            <div class="car-meta">🔋 <strong id="c2-battery">86</strong>%</div>
           </div>
 
-          <div class="stats">
-            <div class="stat">
-              <strong>2–5 ms</strong>
-              <span>ESP-NOW latency</span>
-            </div>
-            <div class="stat">
-              <strong>100–200m</strong>
-              <span>Range</span>
-            </div>
-            <div class="stat">
-              <strong>Real-time</strong>
-              <span>Sensor sharing</span>
-            </div>
+          <div class="section-label">Motion Telemetry</div>
+          <div class="sensor-grid">
+            <div class="sensor"><div class="sensor-label">Accel X</div><div class="sensor-value"><span id="c2-ax">0.000</span><span class="unit">g</span></div></div>
+            <div class="sensor"><div class="sensor-label">Accel Y</div><div class="sensor-value"><span id="c2-ay">0.000</span><span class="unit">g</span></div></div>
+            <div class="sensor"><div class="sensor-label">Accel Z</div><div class="sensor-value"><span id="c2-az">0.800</span><span class="unit">g</span></div></div>
+            <div class="sensor"><div class="sensor-label">Gyro X</div><div class="sensor-value"><span id="c2-gx">0.00</span><span class="unit">°/s</span></div></div>
+            <div class="sensor"><div class="sensor-label">Gyro Y</div><div class="sensor-value"><span id="c2-gy">0.00</span><span class="unit">°/s</span></div></div>
+            <div class="sensor"><div class="sensor-label">Gyro Z</div><div class="sensor-value"><span id="c2-gz">0.00</span><span class="unit">°/s</span></div></div>
+          </div>
+
+          <div class="sensor-grid cols-2">
+            <div class="sensor"><div class="sensor-label">Distance</div><div class="sensor-value"><span id="c2-dist">--</span><span class="unit">cm</span></div></div>
+            <div class="sensor"><div class="sensor-label">Updated</div><div class="sensor-value" style="font-size:0.85rem"><span id="c2-time">--</span></div></div>
+          </div>
+
+          <div class="speed-panel">
+            <div class="speed-header"><div class="speed-label">Velocity</div><div class="speed-readout"><span id="c2-speed-num">0</span>/255</div></div>
+            <div class="speed-track"><div class="speed-progress" id="c2-speed-fill"></div></div>
+          </div>
+
+          <div class="servo-panel">
+            <div class="radar-wrap"><div class="radar-beam" id="c2-radar"></div></div>
+            <div><div class="sensor-label">Sensor Pan Angle</div><div class="servo-angle"><span id="c2-servo">90</span><span class="deg">°</span></div></div>
+          </div>
+
+          <div class="section-label">Drive Controls</div>
+          <div class="controls-grid">
+            <button class="ctrl-btn is-back" onclick="drive(2,'back')">◀ Back</button>
+            <button class="ctrl-btn is-fwd" onclick="drive(2,'forward')" id="c2-fwd">Forward ▶</button>
+            <button class="ctrl-btn" onclick="drive(2,'right')">Right ▶</button>
+            <button class="ctrl-btn" onclick="drive(2,'left')">◀ Left</button>
+            <button class="ctrl-btn is-stop" onclick="drive(2,'stop')" id="c2-stop">■ Stop</button>
+            <button class="ctrl-btn is-brake" onclick="brake(2)" id="c2-brake">✕ Brake</button>
           </div>
         </div>
+      </div>
+    </div>
 
-        <aside class="panel dashboard">
-          <div class="dash-header">
-            <span>Live telemetry</span>
-            <span class="dot"></span>
-          </div>
+    <div class="v2v-panel">
+      <div class="link-visual">
+        <div class="node"><span class="car-tag alpha">Car A</span> · Node 01</div>
+        <div class="link-arrows">⇄</div>
+        <div class="node"><span class="car-tag beta">Car B</span> · Node 02</div>
+      </div>
 
-          <div class="metrics">
-            <div class="metric">
-              <small>Accel X</small>
-              <strong>0.214g</strong>
-            </div>
-            <div class="metric">
-              <small>Gyro Z</small>
-              <strong>12.40°</strong>
-            </div>
-            <div class="metric">
-              <small>Distance</small>
-              <strong>42.5 cm</strong>
-            </div>
-          </div>
+      <div class="section-label">V2V Network</div>
+      <table class="neighbors-table">
+        <thead>
+          <tr>
+            <th>Vehicle</th>
+            <th>RSSI</th>
+            <th>Latency</th>
+            <th>State</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="car-tag alpha">C1</span></td>
+            <td>-56 dBm</td>
+            <td>4 ms</td>
+            <td>Connected</td>
+            <td>Stable</td>
+          </tr>
+          <tr>
+            <td><span class="car-tag beta">C2</span></td>
+            <td>-61 dBm</td>
+            <td>6 ms</td>
+            <td>Connected</td>
+            <td>Stable</td>
+          </tr>
+        </tbody>
+      </table>
 
-          <div class="bars" aria-label="Telemetry chart">
-            <span style="height:64%"></span>
-            <span style="height:48%"></span>
-            <span style="height:88%"></span>
-            <span style="height:58%"></span>
-            <span style="height:76%"></span>
-            <span style="height:93%"></span>
-          </div>
-
-          <div class="neighbors">
-            <div class="neighbors-head">
-              <span>Nearby cars</span>
-              <span>3</span>
-            </div>
-
-            <div class="neighbor">
-              <strong>Car 01</strong>
-              <span class="status-pill status-good">Healthy</span>
-            </div>
-            <div class="neighbor">
-              <strong>Car 02</strong>
-              <span class="status-pill status-warn">Warning</span>
-            </div>
-            <div class="neighbor">
-              <strong>Car 03</strong>
-              <span class="status-pill status-good">Healthy</span>
-            </div>
-          </div>
-        </aside>
-      </section>
-
-      <section id="overview" class="content-grid">
-        <article class="panel feature-card">
-          <h3>Sensor fusion</h3>
-          <p>Accelerometer, gyroscope, ultrasonic distance, and servo angle data are gathered in real time.</p>
-        </article>
-        <article class="panel feature-card">
-          <h3>Low-latency network</h3>
-          <p>ESP-NOW enables quick communication between nearby cars for coordinated driving decisions.</p>
-        </article>
-        <article class="panel feature-card">
-          <h3>Browser dashboard</h3>
-          <p>The project includes a local web interface served by the ESP32 access point for easy monitoring.</p>
-        </article>
-      </section>
-
-      <section class="panel architecture">
-        <div class="eyebrow">Architecture</div>
-        <h2 class="section-title">ESP32 + Wi‑Fi web UI</h2>
-
-        <div class="flow">
-          <div class="node">ESP32</div>
-          <div class="arrow">→</div>
-          <div class="node">Sensor data</div>
-          <div class="arrow">→</div>
-          <div class="node">ESP-NOW</div>
-          <div class="arrow">→</div>
-          <div class="node">Browser UI</div>
-        </div>
-
-        <p>
-          The electronic controller gathers motion and distance data, broadcasts it over ESP-NOW, and exposes a local web interface through the ESP32 Wi-Fi access point.
-        </p>
-      </section>
-
-      <section class="panel setup">
-        <div class="eyebrow">Setup</div>
-        <h2 class="section-title">How to run the project</h2>
-
-        <ol>
-          <li>Flash the Arduino sketch in <span class="mono">drivenet.ino</span> onto an ESP32 board.</li>
-          <li>Connect to the network named <span class="mono">DriveNet_AP</span> with password <span class="mono">drivenet123</span>.</li>
-          <li>Open the local device page at <span class="mono">http://192.168.4.1</span>.</li>
-          <li>Use the dashboard to monitor sensors and nearby vehicles.</li>
-        </ol>
-      </section>
-    </main>
-
-    <footer class="footer">
-      <span>DriveNet</span>
-      <a href="https://github.com/000-Shashank/drivenet" target="_blank" rel="noreferrer">GitHub Repository</a>
-    </footer>
+      <div class="alerts-row">
+        <div class="alert-chip warning active">⚠ Warning: obstacle drift</div>
+        <div class="alert-chip">📡 Signal integrity: normal</div>
+        <div class="alert-chip danger active">⛔ Brake assist armed</div>
+        <div class="alert-chip">📶 Network health: strong</div>
+      </div>
+    </div>
   </div>
+
+  <script>
+    function drive(carId, action) {
+      const map = {
+        forward: ['c' + carId + '-fwd', 'c' + carId + '-stop', 'c' + carId + '-brake'],
+        back: ['c' + carId + '-stop', 'c' + carId + '-brake'],
+        stop: ['c' + carId + '-stop'],
+        left: ['c' + carId + '-stop'],
+        right: ['c' + carId + '-stop']
+      };
+
+      const forwardBtn = document.getElementById('c' + carId + '-fwd');
+      const stopBtn = document.getElementById('c' + carId + '-stop');
+      const brakeBtn = document.getElementById('c' + carId + '-brake');
+
+      if (forwardBtn) forwardBtn.classList.toggle('active', action === 'forward');
+      if (stopBtn) stopBtn.classList.toggle('active', action === 'stop');
+      if (brakeBtn) brakeBtn.classList.toggle('active', false);
+
+      const speedFill = document.getElementById('c' + carId + '-speed-fill');
+      const speedValue = document.getElementById('c' + carId + '-speed-num');
+      const servo = document.getElementById('c' + carId + '-servo');
+      const radar = document.getElementById('c' + carId + '-radar');
+
+      if (speedFill && speedValue) {
+        let level = 0;
+        if (action === 'forward') level = 72;
+        if (action === 'back') level = 38;
+        if (action === 'stop') level = 0;
+        if (action === 'left' || action === 'right') level = 28;
+        speedFill.style.width = level + '%';
+        speedValue.textContent = Math.round((level / 100) * 255);
+      }
+
+      if (servo) {
+        const next = action === 'left' ? 35 : action === 'right' ? 145 : 90;
+        servo.textContent = next;
+      }
+
+      if (radar) {
+        const angle = action === 'left' ? -35 : action === 'right' ? 35 : 0;
+        radar.style.transform = 'translateX(0) rotate(' + angle + 'deg)';
+      }
+    }
+
+    function brake(carId) {
+      const button = document.getElementById('c' + carId + '-brake');
+      if (button) button.classList.toggle('active');
+      const stopBtn = document.getElementById('c' + carId + '-stop');
+      if (stopBtn) stopBtn.classList.add('active');
+      const speedFill = document.getElementById('c' + carId + '-speed-fill');
+      const speedValue = document.getElementById('c' + carId + '-speed-num');
+      if (speedFill && speedValue) {
+        speedFill.style.width = '0%';
+        speedValue.textContent = '0';
+      }
+      const servo = document.getElementById('c' + carId + '-servo');
+      if (servo) servo.textContent = '90';
+      const radar = document.getElementById('c' + carId + '-radar');
+      if (radar) radar.style.transform = 'translateX(0) rotate(0deg)';
+    }
+
+    const now = new Date();
+    const timeText = now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+    document.getElementById('c1-time').textContent = timeText;
+    document.getElementById('c2-time').textContent = timeText;
+
+    document.getElementById('c1-ax').textContent = '0.214';
+    document.getElementById('c1-ay').textContent = '0.031';
+    document.getElementById('c1-az').textContent = '1.028';
+    document.getElementById('c1-gx').textContent = '12.40';
+    document.getElementById('c1-gy').textContent = '8.90';
+    document.getElementById('c1-gz').textContent = '18.20';
+    document.getElementById('c1-dist').textContent = '42.5';
+
+    document.getElementById('c2-ax').textContent = '0.188';
+    document.getElementById('c2-ay').textContent = '0.074';
+    document.getElementById('c2-az').textContent = '0.901';
+    document.getElementById('c2-gx').textContent = '7.30';
+    document.getElementById('c2-gy').textContent = '10.10';
+    document.getElementById('c2-gz').textContent = '15.60';
+    document.getElementById('c2-dist').textContent = '38.2';
+  </script>
 </body>
 </html>
